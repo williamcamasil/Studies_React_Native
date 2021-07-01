@@ -4,15 +4,13 @@ import React, {useState} from 'react';
 import {
   Text,
   View,
+  Button,
   SafeAreaView,
   StyleSheet,
   TouchableHighlight,
   TextInput,
   Image,
 } from 'react-native';
-import Peso from './newcomponents/Peso/Peso';
-import Altura from './newcomponents/Altura/Altura';
-import BotaoCalc from './newcomponents/BotaoCalc/BotaoCalc';
 
 export default function App() {
   const [peso, setPeso] = useState(0);
@@ -40,17 +38,40 @@ export default function App() {
         <Text>Calculadora de IMC</Text>
       </View>
 
-      {/* Passando método por props */}
-      <Peso estilos={estilos} modificarPeso={setPeso} />
-      <Altura estilos={estilos} modificarAltura={setAltura} />
-      <BotaoCalc estilos={estilos} calcular={imcCalc} />
+      <View style={estilos.bloco}>
+        <Text>Informe seu Peso:</Text>
+        <TextInput
+          style={estilos.txt}
+          autoFocus={true}
+          keyboardType={'numeric'}
+          value={peso}
+          onChangeText={text => setPeso(text)}
+        />
+      </View>
+
+      <View style={estilos.bloco}>
+        <Text>Informe sua Altura:</Text>
+        <TextInput
+          style={estilos.txt}
+          autoFocus={true}
+          keyboardType={'numeric'}
+          value={altura}
+          onChangeText={text => setAltura(text)}
+        />
+      </View>
+
+      <View style={estilos.bloco}>
+        <TouchableHighlight style={estilos.btnCalc} onPress={imcCalc}>
+          <Text style={estilos.txtBtn}>Calcular IMC</Text>
+        </TouchableHighlight>
+      </View>
 
       <View style={estilos.bloco}>
         <Text>Resultado: {resultado}</Text>
       </View>
 
       <Image
-        style={estilos.img}
+        style={estilos.logo}
         source={require('./assets/Images/tabela_imc.png')}
       />
     </SafeAreaView>
@@ -83,7 +104,7 @@ const estilos = StyleSheet.create({
     textTransform: 'uppercase',
     color: '#fff',
   },
-  img: {
+  logo: {
     marginTop: 10,
     width: '100%',
     height: 300,
