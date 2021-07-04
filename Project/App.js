@@ -1,92 +1,58 @@
-//APP - IMC
-
+//APP - Cara ou Coroa
 import React, {useState} from 'react';
 import {
   Text,
+  Button,
   View,
   SafeAreaView,
   StyleSheet,
-  TouchableHighlight,
-  TextInput,
   Image,
 } from 'react-native';
-import Peso from './newcomponents/Peso/Peso';
-import Altura from './newcomponents/Altura/Altura';
-import BotaoCalc from './newcomponents/BotaoCalc/BotaoCalc';
 
 export default function App() {
-  const [peso, setPeso] = useState(0);
-  const [altura, setAltura] = useState(0);
-  const [resultado, setResultado] = useState(0);
+  const moedas = [
+    require('./assets/Images/moeda/m1.jpg'),
+    require('./assets/Images/moeda/m5.jpg'),
+    require('./assets/Images/moeda/m1.jpg'),
+    require('./assets/Images/moeda/m2.jpg'),
+    require('./assets/Images/moeda/m3.jpg'),
+    require('./assets/Images/moeda/m4.jpg'),
+    require('./assets/Images/moeda/m5.jpg'),
+    require('./assets/Images/moeda/m6.jpg'),
+    require('./assets/Images/moeda/m7.jpg'),
+    require('./assets/Images/moeda/m8.jpg'),
+  ];
+  let iMoeda = 0;
+  const maxGiros = 20;
 
-  const imcCalc = () => {
-    if (peso == 0 || !peso) {
-      alert('Informe o Peso');
-      return;
+  const [moedaAtual, setMoedaAtual] = useState(moedas[iMoeda]);
+
+  async function espera(tmp) {
+    function tempo(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
+    await tempo(tmp);
+  }
 
-    if (altura == 0 || !altura) {
-      alert('Informe a Altura');
-      return;
-    }
-
-    const r = peso / Math.pow(altura, 2);
-    setResultado(r.toFixed(1));
-  };
+  async function girarMoeda() {}
 
   return (
-    <SafeAreaView style={estilos.corpo}>
-      <View style={estilos.bloco}>
-        <Text>Calculadora de IMC</Text>
-      </View>
-
-      {/* Passando método por props */}
-      <Peso estilos={estilos} modificarPeso={setPeso} />
-      <Altura estilos={estilos} modificarAltura={setAltura} />
-      <BotaoCalc estilos={estilos} calcular={imcCalc} />
-
-      <View style={estilos.bloco}>
-        <Text>Resultado: {resultado}</Text>
-      </View>
-
-      <Image
-        style={estilos.img}
-        source={require('./assets/Images/tabela_imc.png')}
-      />
+    <SafeAreaView style={estilos.container}>
+      <Text style={estilos.titulo}>Cara ou Coroa</Text>
+      <Image source={moedaAtual} />
+      <Button title="Girar" onPress={() => {}} />
     </SafeAreaView>
   );
 }
 
 const estilos = StyleSheet.create({
-  txt: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#000',
-    padding: 10,
-    borderRadius: 10,
-  },
-  corpo: {
-    padding: 10,
-  },
-  bloco: {
-    marginBottom: 10,
-  },
-  btnCalc: {
-    backgroundColor: '#048',
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    borderRadius: 20,
   },
-  txtBtn: {
-    fontSize: 15,
-    textTransform: 'uppercase',
-    color: '#fff',
-  },
-  img: {
-    marginTop: 10,
-    width: '100%',
-    height: 300,
-    resizeMode: 'contain',
+  titulo: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
